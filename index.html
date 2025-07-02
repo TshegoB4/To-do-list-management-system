@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Business To-Do List</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="container">
+      <h1 class="logo">Professional Task Manager</h1>
+      <button class="btn btn-primary" id="newTaskBtn">
+        <i data-lucide="plus" class="icon"></i>
+        New Task
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="tabs">
+      <div class="tab-controls">
+        <button class="tab-btn active" data-tab="overview">
+          <i data-lucide="bar-chart-3" class="icon"></i>
+          Overview
+        </button>
+        <button class="tab-btn" data-tab="matrix">
+          <i data-lucide="grid-3x3" class="icon"></i>
+          Eisenhower Matrix
+        </button>
+        <button class="tab-btn" data-tab="tasks">
+          <i data-lucide="list" class="icon"></i>
+          All Tasks
+        </button>
+        <button class="tab-btn" data-tab="analytics">
+          <i data-lucide="bar-chart-3" class="icon"></i>
+          Analytics
+        </button>
+      </div>
+
+      <div class="tab-content active" id="overview">
+        <section class="analytics-section">
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-content">
+                <p class="stat-title">Total Tasks</p>
+                <p class="stat-value" id="totalTasks">0</p>
+              </div>
+              <i data-lucide="trending-up" class="stat-icon text-blue-600"></i>
+            </div>
+            <div class="stat-card">
+              <div class="stat-content">
+                <p class="stat-title">Completed</p>
+                <p class="stat-value" id="completedTasks">0</p>
+              </div>
+              <i data-lucide="check-circle-2" class="stat-icon text-green-600"></i>
+            </div>
+            <div class="stat-card">
+              <div class="stat-content">
+                <p class="stat-title">In Progress</p>
+                <p class="stat-value" id="inProgressTasks">0</p>
+              </div>
+              <i data-lucide="clock" class="stat-icon text-yellow-600"></i>
+            </div>
+            <div class="stat-card">
+              <div class="stat-content">
+                <p class="stat-title">Overdue</p>
+                <p class="stat-value" id="overdueTasks">0</p>
+              </div>
+              <i data-lucide="alert-triangle" class="stat-icon text-red-600"></i>
+            </div>
+          </div>
+
+          <div class="progress-card">
+            <h3>Completion Rate</h3>
+            <div class="progress-container">
+              <div class="progress-labels">
+                <span>Progress</span>
+                <span id="completionRate">0%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+              </div>
+              <p class="progress-text" id="progressText">0 of 0 tasks completed</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="task-sections">
+          <div class="task-column">
+            <h3>High Priority Tasks</h3>
+            <div class="task-list" id="highPriorityTasks"></div>
+          </div>
+          <div class="task-column">
+            <h3>Recent Tasks</h3>
+            <div class="task-list" id="recentTasks"></div>
+          </div>
+        </section>
+      </div>
+
+      <div class="tab-content" id="matrix">
+        <h2>Eisenhower Decision Matrix</h2>
+        <p class="subtitle">Organize your tasks by urgency and importance to prioritize effectively.</p>
+        
+        <div class="matrix-grid">
+          <div class="quadrant urgent-important">
+            <div class="quadrant-header">
+              <h3>Do First</h3>
+              <p>Urgent & Important</p>
+            </div>
+            <div class="quadrant-tasks" id="urgentImportantTasks"></div>
+          </div>
+          
+          <div class="quadrant not-urgent-important">
+            <div class="quadrant-header">
+              <h3>Schedule</h3>
+              <p>Not Urgent & Important</p>
+            </div>
+            <div class="quadrant-tasks" id="notUrgentImportantTasks"></div>
+          </div>
+          
+          <div class="quadrant urgent-not-important">
+            <div class="quadrant-header">
+              <h3>Delegate</h3>
+              <p>Urgent & Not Important</p>
+            </div>
+            <div class="quadrant-tasks" id="urgentNotImportantTasks"></div>
+          </div>
+          
+          <div class="quadrant not-urgent-not-important">
+            <div class="quadrant-header">
+              <h3>Eliminate</h3>
+              <p>Not Urgent & Not Important</p>
+            </div>
+            <div class="quadrant-tasks" id="notUrgentNotImportantTasks"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tasks">
+        <h2>All Tasks</h2>
+        <div class="all-tasks-grid" id="allTasksGrid"></div>
+      </div>
+
+      <div class="tab-content" id="analytics">
+        <h2>Analytics & Reports</h2>
+        
+        <section class="analytics-section">
+          <div class="stats-grid">
+            <!-- Same stats as overview -->
+          </div>
+          
+          <div class="progress-card">
+            <!-- Same progress as overview -->
+          </div>
+        </section>
+        
+        <div class="analytics-grid">
+          <div class="analytics-card">
+            <h3>Task Distribution</h3>
+            <div class="distribution-list">
+              <div class="distribution-item">
+                <span>To Do</span>
+                <span class="distribution-value" id="todoCount">0</span>
+              </div>
+              <div class="distribution-item">
+                <span>In Progress</span>
+                <span class="distribution-value" id="inProgressCount">0</span>
+              </div>
+              <div class="distribution-item">
+                <span>Completed</span>
+                <span class="distribution-value" id="completedCount">0</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="analytics-card">
+            <h3>Priority Breakdown</h3>
+            <div class="distribution-list">
+              <div class="distribution-item">
+                <span>Urgent</span>
+                <span class="distribution-value text-red-600" id="urgentCount">0</span>
+              </div>
+              <div class="distribution-item">
+                <span>High</span>
+                <span class="distribution-value text-orange-600" id="highCount">0</span>
+              </div>
+              <div class="distribution-item">
+                <span>Medium</span>
+                <span class="distribution-value text-yellow-600" id="mediumCount">0</span>
+              </div>
+              <div class="distribution-item">
+                <span>Low</span>
+                <span class="distribution-value text-green-600" id="lowCount">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Task Modal -->
+  <div class="modal" id="taskModal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2 id="modalTitle">New Task</h2>
+      <form id="taskForm">
+        <div class="form-group">
+          <label for="taskTitle">Title</label>
+          <input type="text" id="taskTitle" required>
+        </div>
+        <div class="form-group">
+          <label for="taskDescription">Description</label>
+          <textarea id="taskDescription" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="taskPriority">Priority</label>
+            <select id="taskPriority" required>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              <option value="urgent">Urgent</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="taskStatus">Status</label>
+            <select id="taskStatus" required>
+              <option value="todo">To Do</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="taskUrgency">Urgency</label>
+            <select id="taskUrgency" required>
+              <option value="urgent">Urgent</option>
+              <option value="not-urgent">Not Urgent</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="taskImportance">Importance</label>
+            <select id="taskImportance" required>
+              <option value="important">Important</option>
+              <option value="not-important">Not Important</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="taskDueDate">Due Date</label>
+          <input type="date" id="taskDueDate">
+        </div>
+        <div class="form-group">
+          <label for="taskTags">Tags (comma separated)</label>
+          <input type="text" id="taskTags" placeholder="design, frontend, backend">
+        </div>
+        <button type="submit" class="btn btn-primary">Save Task</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
